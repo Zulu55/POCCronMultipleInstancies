@@ -7,10 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Elsa" Version="2.13.0" />
-    <PackageReference Include="Elsa.Activities.Console" Version="2.13.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.0" />
-  </ItemGroup>
-
 </Project>
