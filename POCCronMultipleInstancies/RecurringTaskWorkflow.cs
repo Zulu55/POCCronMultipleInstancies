@@ -9,11 +9,15 @@ namespace POCCronMultipleInstancies
     {
         private readonly IClock _clock;
 
+        private readonly Guid _process = Guid.NewGuid();
+
         public RecurringTaskWorkflow(IClock clock) => _clock = clock;
+
+        public string Process => _process.ToString().Substring(30, 6);
 
         public void Build(IWorkflowBuilder builder) =>
             builder
-                .Timer(Duration.FromSeconds(5))
-                .WriteLine(() => $"It's now {_clock.GetCurrentInstant()}. Let's do this thing!");
+                .Timer(Duration.FromSeconds(1))
+                .WriteLine(() => $"Process [{Process}] Time [{_clock.GetCurrentInstant()}]");
     }
 }
