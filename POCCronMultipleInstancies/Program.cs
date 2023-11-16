@@ -1,12 +1,22 @@
-﻿namespace POCCronMultipleInstancies
-{
-    public class Program
+﻿using Elsa;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using POCCronMultipleInstancies;
+
+var host = new HostBuilder()
+    .ConfigureServices((hostContext, services) =>
     {
-        private static async Task Main(string[] args)
-        {
-            Console.WriteLine("Begin");
-            await Task.Delay(1000);
-            Console.WriteLine("End");
-        }
-    }
+        services
+    .AddElsa(elsa => elsa
+        .AddConsoleActivities()
+        .AddQuartzTemporalActivities()
+        .AddWorkflow<RecurringTaskWorkflow>());
+    })
+    .UseConsoleLifetime()
+    .Build();
+
+using (host)
+{
+    await host.StartAsync();
+    await host.WaitForShutdownAsync();
 }

@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Elsa" Version="2.13.0" />
+    <PackageReference Include="Elsa.Activities.Temporal.Quartz" Version="2.13.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+
 </Project>
