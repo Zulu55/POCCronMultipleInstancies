@@ -28,8 +28,8 @@ namespace POCCronMultipleInstancies
 
         private async void TryExecuteProcessAsync()
         {
-            var locked = await _distributedLockManager.AcquireLockAsync(_task, TimeSpan.FromMinutes(1));
-            if (locked)
+            var unlocked = await _distributedLockManager.AcquireLockAsync(_task, TimeSpan.FromMinutes(1));
+            if (unlocked)
             {
                 Console.WriteLine($"Process [{Process}] Time [{_clock.GetCurrentInstant()}]");
                 await Task.Delay(TimeSpan.FromMilliseconds(500));
