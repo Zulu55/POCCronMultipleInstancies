@@ -3,6 +3,7 @@ using Elsa.Activities.Console;
 using Elsa.Activities.Temporal;
 using Elsa.Builders;
 using Elsa.Extensions;
+using Elsa.Rebus.RabbitMq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NodaTime;
@@ -22,6 +23,7 @@ internal class Program
                         .AddConsoleActivities()
                         .AddQuartzTemporalActivities()
                         .AddWorkflow<RecurringTaskWorkflow>()
+                        .UseRabbitMq("amqp://localhost:5672")
                         .ConfigureDistributedLockProvider(options => options.UseSqlServerLockProvider(dbConnectionString))
                         .UseRedisCacheSignal());
             })
