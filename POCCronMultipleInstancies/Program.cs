@@ -14,6 +14,7 @@ internal class Program
     {
         var dbConnectionString = "Data Source=.;Initial Catalog=POC;User ID=sa;Password=Roger1974.;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         var redisConnectionString = "zulutest.redis.cache.windows.net:6380,password=OWuJzbESK5HFAE5jMPLxnVk1s9oxUKYQkAzCaAqTIao=,ssl=True,abortConnect=False";
+        var rabbitMqConnectionString = "amqp://localhost:5672";
 
         var host = new HostBuilder()
             .ConfigureServices((hostContext, services) =>
@@ -23,7 +24,7 @@ internal class Program
                         .AddConsoleActivities()
                         .AddQuartzTemporalActivities()
                         .AddWorkflow<RecurringTaskWorkflow>()
-                        .UseRabbitMq("amqp://localhost:5672")
+                        .UseRabbitMq(rabbitMqConnectionString)
                         .ConfigureDistributedLockProvider(options => options.UseSqlServerLockProvider(dbConnectionString))
                         .UseRedisCacheSignal());
             })
