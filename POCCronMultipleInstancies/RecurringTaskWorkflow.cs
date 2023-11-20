@@ -16,7 +16,6 @@ namespace POCCronMultipleInstancies
             _task = "TestTask";
             _clock = clock;
             _distributedLockManager = distributedLockManager;
-            _distributedLockManager.ReleaseLockAsync(_task).Wait();
         }
 
         public string Process => _process.ToString().Substring(30, 6);
@@ -39,6 +38,11 @@ namespace POCCronMultipleInstancies
             {
                 Console.WriteLine("Process running in another instance...");
             }
+        }
+
+        ~RecurringTaskWorkflow()
+        {
+            _distributedLockManager.ReleaseLockAsync(_task).Wait();
         }
     }
 }
